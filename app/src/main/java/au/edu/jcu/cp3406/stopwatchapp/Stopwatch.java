@@ -13,10 +13,19 @@ public class Stopwatch {
     }
 
     public void tick() {
-        // TODO
+        seconds++;
+        if (seconds == 60) { // Been 1 minute
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes == 60) { // Been 1 hour
+            minutes = 0;
+            hours++;
+        }
     }
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public String toString() {
         Locale locale = Locale.getDefault();
         return String.format(locale, "%02d:%02d:%02d", hours, minutes, seconds);
