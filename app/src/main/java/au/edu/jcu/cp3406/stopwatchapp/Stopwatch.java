@@ -12,6 +12,13 @@ public class Stopwatch {
         hours = minutes = seconds = 0;
     }
 
+    Stopwatch(String savedInstanceState) {
+        String[] savedInstanceValues = savedInstanceState.split(":");
+        this.hours = Integer.parseInt(savedInstanceValues[0]);
+        this.minutes = Integer.parseInt(savedInstanceValues[1]);
+        this.seconds = Integer.parseInt(savedInstanceValues[2]);
+    }
+
     public void tick() {
         seconds++;
         if (seconds == 60) { // Been 1 minute
