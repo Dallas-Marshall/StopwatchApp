@@ -1,8 +1,10 @@
 package au.edu.jcu.cp3406.stopwatchapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,6 +17,7 @@ public class StopwatchActivity extends AppCompatActivity {
     private boolean isRunning;
     private TextView stopwatchTimeDisplay;
     private Button stopwatchToggle;
+    private int speed;
 
 
     @Override
@@ -52,7 +55,7 @@ public class StopwatchActivity extends AppCompatActivity {
                 if (isRunning) {
                     stopwatch.tick();
                     stopwatchTimeDisplay.setText(stopwatch.toString());
-                    handler.postDelayed(this, 1000); // Wait 1000 ms before running again
+                    handler.postDelayed(this, speed); // Wait 1000 ms before running again
                 }
             }
         });
@@ -73,5 +76,23 @@ public class StopwatchActivity extends AppCompatActivity {
 
     private void updateStopwatchToggleText() {
         stopwatchToggle.setText(isRunning ? "Stop" : "Start");
+    }
+
+    public void settingsClicked(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, SettingsActivity.SETTINGS_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SettingsActivity.SETTINGS_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    speed = data.getIntExtra("Speed", 1000);
+                }
+            }
+        }
     }
 }
