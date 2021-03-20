@@ -10,8 +10,6 @@ import android.widget.EditText;
 public class SettingsActivity extends AppCompatActivity {
     public static final int SETTINGS_REQUEST = 1;
 
-    private EditText speedEntry;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void doneClicked(View view) {
+        EditText speedEntry = findViewById(R.id.speedEntry);
         String text = speedEntry.getText().toString();
         int speed = Integer.parseInt(text);
 
